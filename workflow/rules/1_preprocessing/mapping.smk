@@ -1,5 +1,4 @@
 import pandas as pd
-
 configfile: "../../../config/config.yaml" #Set config file.
 
 Samplesheet = pd.read_csv(config["Samplesheet"], sep=' ') #Read sample sheet in a dataframe.
@@ -36,7 +35,7 @@ if config["Mode"] == "ONT":  # Choose the sequencer used for data.
         input:
             MapIn + "{sample}.fastq.gz"
         output:
-            tmp_dir + metaPath + "/1_mapping/{sample}.bam"
+            tmp_dir + metaPath + "/1_mapping/{sample}_unsorted.sam"
         params:
             ref = RefPath
         threads: config["ThreadNr"]
@@ -50,10 +49,28 @@ if config["Mode"] == "ONT":  # Choose the sequencer used for data.
             minimap2 -ax map-ont {params.ref} \
                      {input} \
                      -t {threads} \
-                     2> {log} |
-                     samtools sort \
+                     2> {log} \
+                     > {output}
+            """
+    rule sort:
+        input:
+            tmp_dir + metaPath + "/1_mapping/{sample}_unsorted.sam"
+        output:
+            tmp_dir + metaPath + "/1_mapping/{sample}.bam"
+        params:
+            ref = RefPath
+        threads: config["ThreadNr"]
+        conda: "../../envs/map_ONT_env_sort.yaml"
+        benchmark:
+            config["OutPath"] + "/benchmark/" + ProjDirName + "/1_mapping/{sample}.tsv"
+        log:
+            config["OutPath"] + "/logs/" + ProjDirName + "/1_mapping/{sample}.log"
+        shell:
+            """
+            samtools sort \
                      -@ {threads} \
-                     -o {output} 2>> {log}
+                     -o {output} 2>> {log} \
+                     {input}
             """
 else:
     rule map:

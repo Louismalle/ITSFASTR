@@ -1,0 +1,7 @@
+name: Map_ONT_SORT
+prefix: ~/miniconda3/envs/ITSFASTR
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - samtools=1.12
