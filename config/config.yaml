@@ -3,25 +3,25 @@
 ################################################################################
 
 # The name of the project will be used to separate the runs.
-ProjName: 
+ProjName: BAKI_2023
 # Path to the sample sheet.
 Samplesheet: ../../../config/samplesheet.csv
 # Sequencing type.
 # Choose the sequencer [Illumina, ONT]. Deafult is 'Illumina'.
-Mode: Illumina
+Mode: ONT
 # Is this a methylome library? Default is 'False'.
 MethLib: False
 # Indexed reference path.
 # If this is a methylome library please choose a converted index!
-RefPath: 
+RefPath: ../../../../../../../../Data/Requirements_ITSFASTR/minimap2_ref/hg38.mmi
 # Path to the directory containing the sample fastqs.
-SamplePath: 
+SamplePath: ../../../../../../../../Data/BAKI20231204
 # Output path.
-OutPath:
+OutPath: ../../../../../../../../Data/Output_ITSFASTR/BAKI_20231204/Output
 # Path to TMPDIR.
-TmpDir:
+TmpDir: ../../../../../../../../Data/Output_ITSFASTR/BAKI_20231204/Tmp
 # Number of threads to use.
-ThreadNr: 8
+ThreadNr: 4
 # The mapping quality of reads to be kept.
 FiltQual: 5
 
@@ -150,13 +150,13 @@ Regroup:
 griffin_scripts_dir: ../../scripts/5_Griffin_LR
 
 # Path to the reference genome fasta file.
-RefGenome:
+RefGenome: ../../../../../../../../Data/Requirements_ITSFASTR/minimap2_ref/hg38.fa
 
 # Chrom sizes for the selected reference genome.
 chrom_sizes: ../../../resources/Griffin_LR/hg38.standard.chrom.sizes
 
 # File containing mappability value for each bp in the genome.
-mappability_bw: ../../../resources/Griffin_LR/k100.Umap.MultiTrackMappability.bw
+mappability_bw: ../../../resources/Griffin_LR/k50.Umap.MultiTrackMappability.bw
 mappability_correction: False # Whether to run a mappability correction step, we found that this does not improve signals and we do not recommend it.
 
 # Bed file containing regions to exclude.
@@ -183,13 +183,13 @@ GC_bias_size_range: 15 500
 #################### GRIFFIN_LR NUCLEOSOME PROFILING ###########################
 ################################################################################
 # Path to the mappability file.
-mappability_bw: ../../../resources/Griffin_LR/k100.Umap.MultiTrackMappability.bw
+mappability_bw: ../../../../../../../../Data/ITSFASTR/resources/Griffin_LR/k50.Umap.MultiTrackMappability.bw
 # Path to chromosome sizes file.
 chrom_sizes_path: ../../../resources/Griffin_LR/hg38.standard.chrom.sizes
 # List of paths to the sites of interest files.
 site_lists:
-  TssA:
-  Quies:
+  TssA: ../../../../../../../../Data/Requirements_ITSFASTR/Site_lists/TssA_open.high_mapability.txt
+  Quies: ../../../../../../../../Data/Requirements_ITSFASTR/Site_lists/Quies_closed.high_mapability.txt
 # Column containing the chromosome in your sites of interest file.
 chrom_column: Chrom
 # Column containing the site position.
